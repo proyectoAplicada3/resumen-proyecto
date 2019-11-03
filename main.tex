@@ -25,7 +25,7 @@
 
 %%CARATULA
 \author{\begin{tabular}{rl}
-  \textbf{Alumnos:} & Maximiliano Barrios - {LEG.AJO-1} \\ & Agustín Ebrecht - {LEG.AJO-2} \\ & Pablo Fritzler - {LEG.AJO-3} \\ & Federico Tucci - {149.827-7} \\ & Rodrigo Videla - {LEG.AJO-5}
+  \textbf{Alumnos:} & Barrios Maximiliano - {149.512-4} \\ & Ebrecht Agustín {- {155.418-2} }\\ & Fritzler Pablo {- {155.413-0} }\\ & Tucci Federico{ - {149.827-7} }\\ & Videla Rodrigo{ - {146.574-0}}
 \end{tabular}}
 
 
@@ -87,14 +87,13 @@ Nuestro primer objetivo es lograr la adaptación entre estos dos circuitos, cono
  
 \section{Materiales y métodos}
 
+\comment { %%BEGIN COMENTARIO
 \subsection{Front-End; \textbf{no sé si dejar esta subsección}}
-
 El filtro de RF permitirá la atenuación de la primer frecuencia imagen que afectará al receptor superheterodino. 
-
 \begin{center}
 $f_o = 100MHz$ , $Bw = 100KHz$
 \end{center}
-
+}%% END COMENTARIO
 
 \subsection{Primer oscilador y mezclador}
 El SA612 es un circuito integrado utilizado para el procesamiento
@@ -106,7 +105,7 @@ Se utilizará un integrado SA612, el mismo consta de un oscilador de hasta $200M
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.55]{SA612}
-  \caption{  }
+  \caption{IC SA612}
 \end{figure}
 
 La impedancia de cada entrada de CA equivalente es de aproximadamente $1.5K\Omega$ y $3 pF$ @ $50 MHz$. Cada salida es conectado a la fuente de alimentación por una resistencia interna de $1.5 K\Omega$. Esto permite tener salida balanceada, de $3 K\Omega$ y simple, de $1.5 K\Omega$.
@@ -131,19 +130,91 @@ Dado el amplio rango de frecuencias en el cual puede trabajar Red Pitaya, podrem
 \begin{figure}[H]
   \centering
     \includegraphics[scale=0.7]{PITAYA}
-  \caption{  }
+  \caption{ Red Pitaya }
 \end{figure}
 
-\subsection{Método utilizado; describir un poquito el método}
-Se analiza la impedancia que presenta la salida del transistor y se adapta con el circuito de entrada del integrado del mezclador.
-
-**METER FIGURA**
-
-**CONTAR UN POQUITO**
-
-**NO PONER PROCEDIMIENTO, SÍ RESULTADOS**
+\subsection{Método utilizado}
+Se analizará la impedancia que presenta el circuito de salida del transistor y se adapta con el circuito de entrada del integrado del mezclador.
 
 
+Contemplamos el siguiente circuito que es la propuesta de la nota de aplicación:
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.55]{ADAPT0}
+  \caption{ Circuito presentado por la nota de aplicación}
+\end{figure}
+La impedancia, conformada por un resistor y un capacitor, que se ve a la salida de la etapa de amplificador es:
+
+\begin{center}
+    $R_{out}=900.9 \Omega$, $C_{out}=2.21pF$
+\end{center}
+
+Para la entrada del circuito del oscilador es:
+
+\begin{center}
+    $R_{in}=1500 \Omega$, $C_{in}=3pF$
+\end{center}
+
+
+Además eliminamos $L2$ y $C2$, y modificamos $C4$ para que el tanque resuene en $100Mhz$.
+
+Los valores quedan:
+
+\begin{center}
+    \comment{$L2=0$, $C2=\infty$, }$L3=120nHy$, $C4=21.1pF$
+\end{center}
+
+
+
+
+
+
+\comment{La impedancia que se ve a la salida de la etapa de amplificador es:
+$$
+Z_{out}=1500 \Omega
+$$
+Y la que se ve a la entrada del circuito del oscilador es:
+$$
+Z_{in}=52 \Omega
+$$
+\comment{Tenemos 2 propuestas para los circuitos de adaptación.\\}
+Nuestra\comment{primera} opción es una red L invertida:
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.55]{ADAPT1}
+  \caption{ Red L invertida }
+\end{figure}
+Los valores que calculamos para esta topología son:
+\begin{center}
+$L=27mHy$, $C=90pF$
+\end{center}
+\comment{
+{\Large \textbf{**acá hablamos un poco del inductor elegido; johanson**}}
+}
+}
+
+
+
+
+
+Proponemos la siguiente red de adaptación:
+
+\begin{figure}[H]
+  \centering
+    \includegraphics[scale=0.55]{ADAPT2_}
+  \caption{ Red de adaptación propuesta }
+\end{figure}
+
+A ella la capacidad de salida del amplificador se le restará al capacitor $C1$, y se tendrá en cuenta también la capacidad del mezclador, la cuál se resta de las capacidades $C1$ y $C2$ en paralelo.
+
+Los valores calculados para esta red son los siguientes:
+
+\begin{center}
+$L=120nHy$, $C1=80.89pF$, $C2=23.31pF$
+\end{center}
+
+Logrando así una adaptación entre ambos componentes.
 
 
 
@@ -225,13 +296,13 @@ Sin embargo, éste no nos exime del empleo de la etapa de front-end, donde debe 
 
 \section{Conclusiones}
 
-\textbf{acá van las conclusiones, claro, que surgen de la subsección "método"}
+Esperamos poder integrar los conocimientos de la clase a este proyecto, lograr la detección de un objeto y determinar la distancia respecto al radar, utilizando lo aprendido durante la cursada e implementando los circuitos, cuyas técnicas de diseño fueran incorporadas gracias a la asignatura.
 \end{document}
 
 
 %% Para hacer comentarios:
 
-\comment{}
+\comment{ comentario }
 
 %% también se puede usar \begin{comment}, que debe terminar con \end{comment} pero adentro del documento (\begin{document}) no compila. Acá el ejemplo (afuera del documento) con el código adentro de cómo meter una imagen
 
